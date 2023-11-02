@@ -1,6 +1,7 @@
 <?php
     session_start();
     require '../koneksi/koneksi.php';
+    include 'header.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 
 <style>
     .main{
-        height: 100vh;
+        height: 75vh;
     }
 
     .login-box{
@@ -56,7 +57,8 @@
                 </div>
                 <div class="button-container">
                     <button class="btn btn-success mt-3" type="submit" name="loginbtn">Login</button>
-                    <button class="btn btn-success mt-3" type="submit" name="daftarbtn">Register</button>
+                    <a href="register.php" class="btn btn-success mt-3">Register</a>
+
                 </div>
             </form>
         </div>
@@ -112,3 +114,7 @@
     </div>
 </body>
 </html>
+
+<?php 
+	include '../proses/footer.php';
+ ?>
