@@ -1,12 +1,7 @@
 <?php
-    session_start();
-    if($_SESSION['login']==false){
-<<<<<<< HEAD
-        header('location: login_proses.php');
-    }
+session_start();
+if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+    header('../proses/login_proses.php');
+    exit; // Penting untuk menghentikan eksekusi kode selanjutnya setelah mengarahkan pengguna.
+}
 ?>
-=======
-        header('location: login.proses.php');
-    }
-?>
->>>>>>> d7c8db80bb5d3ee8c2be71225edef1a923ed2f4c

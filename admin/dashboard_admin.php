@@ -1,7 +1,6 @@
 <?php
-    require "../proses/session.php";
+require "../proses/session.php"; // Ini akan menginisialisasi sesi dan mengatur $_SESSION['username'] jika diperlukan.
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
