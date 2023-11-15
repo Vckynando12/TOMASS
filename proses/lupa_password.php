@@ -51,12 +51,7 @@
                                     password_reset.php?secret='.base64_encode($email).'">Reset Password</a></button></p>
                                 <br>
                                 <p>If you did not request a password reset, no further action is required.</p>
-                                </div>';
-
-                                include_once("smtpmail/class.phpmailer.php");
-                                $email = $email;
-                                $mail = new PHPMailer();
-                            }
+                                </div>';                            }
                         }
                         ?>
                     </div>
