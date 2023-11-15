@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    session_unset();
-    session_destroy();
-    header('location: login_proses.php');
+    session_start(); //inisialisasi session
+    if(session_destroy()) { //menghapus session
+        header("Location: home.php");
+    }
 ?>
