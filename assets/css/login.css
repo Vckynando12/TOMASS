@@ -1,0 +1,61 @@
+
+/* login */
+    .login{
+        height: 100vh;
+    }
+    .login-form{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .h1{
+        margin-top: 22px;
+    }
+
+    .login-form label{
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .login-form a{
+        margin-top: 22px;
+        display: inline-block;
+    }
+    .login .login-left{
+        background-color: #EAEAEA;
+    }
+
+    .login .login-right{
+        background-color: #B0D9B1;
+    }
+    .button-container{
+        display: flexbox;
+    }
+    .button-container .btn{
+        background-color: #618264;
+    }
+    .button{
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .button a:hover{
+        background-color: transparent;
+    }
+
+    @media screen and (max-width: 500px) {
+        .login-form {
+            flex-wrap: wrap;
+        }
+    }
+
+
+
