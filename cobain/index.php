@@ -67,7 +67,7 @@ require '../koneksi/koneksi.php';
                             </a>
                             <a class="nav-link" href="index.php?halaman=laporan">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Laporan
+                                Pembelian
                             </a>
                             <a class="nav-link" href="index.php?halaman=master_barang">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
