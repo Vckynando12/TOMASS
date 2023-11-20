@@ -6,15 +6,17 @@ include '../layout/header.php';
 $Kode_barang = mysqli_query($con, "SELECT id_barang FROM barang ORDER BY id_barang DESC");
 $data = mysqli_fetch_assoc($Kode_barang);
 
-$format = "B%04d"; // Format kode menggunakan sprintf
+// $format = "B%04d"; // Format kode menggunakan sprintf
 
-if ($data && isset($data['id_barang'])) {
-    $num = substr($data['id_barang'], 1, 4);
-    $add = (int) $num + 1;
-    $format = sprintf($format, $add);
-} else {
-    $format = sprintf($format, 1);
-}
+// if ($data && isset($data['id_barang'])) {
+//     $num = substr($data['id_barang'], 1, 4);
+//     $add = (int) $num + 1;
+//     $format = sprintf($format, $add);
+// } else {
+//     $format = sprintf($format, 1);
+// }
+$randomNumber = rand(100, 9999);
+$format = "B" . $randomNumber;
 ?>
 
 
@@ -22,7 +24,7 @@ if ($data && isset($data['id_barang'])) {
     <div class="container mt-5">
         <h2 style="width: 100%; border-bottom: 4px solid gray"><b>Tambah Barang</b></h2>
 
-        <form action="m_barang.php" method="POST" enctype="multipart/form-data">
+        <form action="../function/admin.php" method="POST" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-md-6">
@@ -69,14 +71,13 @@ if ($data && isset($data['id_barang'])) {
                         <br>
                         <input type="file" id="exampleInputFile" name="gambar">
                     </div>
+
                     <br>
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-success btn-block" name="kirim">
                             <i class="glyphicon glyphicon-plus-sign"></i>Tambah
                         </button>
-                    </div>
                 </div>
-            </div>
         </form>
     </div>
 </div>
