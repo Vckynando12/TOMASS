@@ -3,7 +3,6 @@ session_start();
 include("../koneksi/koneksi.php");
 if (isset($_SESSION['username']) && is_array($_SESSION['username'])) {
     $user = $_SESSION['username'];
-
     $query_keranjang = mysqli_query($con, "SELECT * FROM keranjang WHERE id_user = '$user[id_user]'");
     $data_keranjang = mysqli_fetch_assoc($query_keranjang);
     $jumlah_barang_keranjang = 0;
