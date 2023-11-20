@@ -31,5 +31,4 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id_det
 
 header('Location: keranjang.php');
 exit();
-
 ?>
