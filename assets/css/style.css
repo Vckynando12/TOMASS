@@ -1,0 +1,23 @@
+.navstyle {
+    background-color: #B0D9B1 !important;
+}
+
+.navbar-brand {
+    font-size: x-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar-nav > li {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.custom-image {
+    max-width: 200px;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+

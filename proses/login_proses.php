@@ -1,114 +1,82 @@
 <?php
-    session_start();
-    require '../koneksi/koneksi.php';
-?>
+session_start();
+require '../koneksi/koneksi.php';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../assets/bootstrap/bootstrap.min.css">
-</head>
+if (isset($_POST['loginbtn'])){
+    $email  = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
 
-<style>
-    .main{
-        height: 100vh;
-    }
+    $query = mysqli_query($con, "SELECT * FROM user WHERE email='$email'");
+    $countdata = mysqli_num_rows($query);
+    $data = mysqli_fetch_assoc($query);
 
-    .login-box{
-        width: 500px;
-        height: 300px;
-        box-sizing: border-box;
-        border-radius: 10px;
-    }
-    .button-container{
-        display: flexbox;
-    }
-    .button{
-        padding: 10px 20px;
-        margin-right: 10px;
-        border: none;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-    }
-</style>
-<body>
-    <div class="main d-flex flex-column justify-content-center align-items-center">
-        <div class="login-box p-5 shadow">
-            <form action="" method="post">
-                <div>
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" 
-                    id="email">
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" 
-                    id="password">
-                </div>
-                <div>
-                    <a href="lupa_password">Lupa password?</a>
-                </div>
-                <div class="button-container">
-                    <button class="btn btn-success mt-3" type="submit" name="loginbtn">Login</button>
-                    <button class="btn btn-success mt-3" type="submit" name="daftarbtn">Register</button>
-                </div>
-            </form>
-        </div>
+    if($countdata > 0){
+        $hashed = password_hash($data['password'], PASSWORD_BCRYPT);
+        if(password_verify($password, $hashed)){
+            $_SESSION['username'] = $data;
+            $_SESSION['login'] = true;
+            $_SESSION['user_id'] = $data['id_user'];
+            $_SESSION['level'] = $data['level'];
 
-        <div class="mt-3" style="width: 500px;">
-            <?php
-            if (isset($_POST['loginbtn'])){
-                $email  = htmlspecialchars($_POST['email']);
-                $password = htmlspecialchars($_POST['password']);
 
-                $query = mysqli_query($con, "SELECT * FROM user WHERE email='$email'");
-                $countdata = mysqli_num_rows($query);
-                $data = mysqli_fetch_assoc($query);
-
-                if($countdata>0){
-                    $hashed = password_hash($data['password'], PASSWORD_BCRYPT);
-                    if(password_verify($password, $hashed)){
-                        $_SESSION['email'] = $data['email'];
-                        $_SESSION['username'] = $data['username'];
-                        $_SESSION['level'] = $data['level'];
-                        if($data['level'] == 1){
-                            header('location: ../admin/dashboard_admin.php');
-                            exit();
-                        }
-                        elseif($data['level']==2) {
-                            header('location: dashboard_karyawan.php');
-                            exit();
-                        }
-                        elseif($data['level']==3){
-                            header('location: home.php');
-                            exit();
-                        }
-                        $_SESSION['login'] = true;
-                    }
-                    else{
-                        ?>
-                        <div class="alert alert-warning" role="alert">
-                            Password salah
-                        </div>
-                        <?php
-                    }
-                }
-                else{
-                    ?>
-                    <div class="alert alert-warning" role="alert">
-                        Akun tidak tersedia
-                    </div>
-                    <?php
-                }
+            if($data['level'] == 1){
+                header('location: ../admin/dashboard_admin.php');
+                exit();
             }
-            ?>
-        </div>
-    </div>
-</body>
-</html>
+            elseif($data['level'] == 2 || $data['level'] == 3) {
+                header('location: ../public/index.php');
+                exit();
+            }
+        }
+        else{
+            $password_error = true;
+        }
+    }
+    else{
+        $account_not_found = true;
+    }
+}
+
+    // session_start();
+    // require '../koneksi/koneksi.php';
+    
+    // if (isset($_POST['loginbtn'])){
+    //     $email = htmlspecialchars($_POST['email']);
+    //     $password = htmlspecialchars($_POST['password']);
+    
+    //     $stmt = $con->prepare("SELECT * FROM user WHERE email = ?");
+    //     $stmt->bind_param("s", $email);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    
+    //     if ($result->num_rows > 0) {
+    //         $data = $result->fetch_assoc();
+    //         if (password_verify($password, $data['password'])) {
+    //             $_SESSION['email'] = $data['email'];
+    //             $_SESSION['username'] = $data['username'];
+    //             $_SESSION['level'] = $data['level'];
+    
+    //             if ($data['level'] == 1) {
+    //                 header('location: ../admin/dashboard_admin.php');
+    //                 exit();
+    //             } elseif ($data['level'] == 2) {
+    //                 header('location: ../public/index.php');
+    //                 exit();
+    //             } elseif ($data['level'] == 3) {
+    //                 header('location: ../public/index.php');
+    //                 exit();
+    //             } else {
+    //                 // Handle unknown user level
+    //                 // You may want to redirect to an error page or handle it in a specific way.
+    //             }
+    
+    //             $_SESSION['login'] = true;
+    //         } else {
+    //             $password_error = true;
+    //         }
+    //     } else {
+    //         $account_not_found = true;
+    //     }
+    // }
+
+?>
