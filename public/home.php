@@ -1,6 +1,5 @@
 <?php
 include("../koneksi/koneksi.php");
-
 $search_query = isset($_GET['query']) ? mysqli_real_escape_string($con, $_GET['query']) : '';
 $query_products = mysqli_query($con, "SELECT * FROM barang WHERE nama_barang LIKE '%$search_query%'");
 $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
