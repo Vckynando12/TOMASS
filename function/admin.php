@@ -14,42 +14,44 @@ require '../koneksi/koneksi.php';
 $Kode_barang = mysqli_query($con, "SELECT id_barang FROM barang ORDER BY id_barang DESC");
 $data = mysqli_fetch_assoc($Kode_barang);
 
-$format = "B%04d"; // Format kode menggunakan sprintf
+// $format = "B%04d"; // Format kode menggunakan sprintf
 
-if ($data && isset($data['id_barang'])) {
-    $num = substr($data['id_barang'], 1, 4);
-    $add = (int) $num + 1;
-    $format = sprintf($format, $add);
-} else {
-    $format = sprintf($format, 1);
-}
+// if ($data && isset($data['id_barang'])) {
+//     $num = substr($data['id_barang'], 1, 4);
+//     $add = (int) $num + 1;
+//     $format = sprintf($format, $add);
+// } else {
+//     $format = sprintf($format, 1);
+// }
+$randomNumber = rand(1000, 9999);
+$format = "B" . $randomNumber;
 
 //Menambah Barang Baru 
-if (isset($_POST['addnewbarang'])) {
+if (isset($_POST['kirim'])) {
     $nama_barang = $_POST['nama_barang'];
     $harga_jual = $_POST['harga_jual'];
     $harga_beli = $_POST['harga_beli'];
     $stok = $_POST['stok'];
     $satuan = $_POST['satuan'];
-    $gambar = $_POST['gambar'];
+    $gambar_temp = $_FILES['gambar']['tmp_name'];
+    $gambar = addslashes(file_get_contents($gambar_temp));
+    $id_barang = $format;
 
-    $addtotable = mysqli_query($con, "insert into barang (nama_barang, harga_jual, harga_beli, stok, satuan, gambar) values ('$nama_barang','$harga_jual','$harga_beli','$stok','$satuan','$gambar')");
+    $addtotable = mysqli_query($con, "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, stok, satuan, gambar) VALUES ('$id_barang','$nama_barang','$harga_jual','$harga_beli','$stok','$satuan','$gambar')");
+
     if ($addtotable) {
-        header('location:index.php');
+        header('location: ../admin/m_barang.php');
     } else {
         echo 'Gagal';
-        header('location:index.php');
+        header('location:../admin/m_barang.php');
     }
 }
-
-
-
 
 function home()
 {
     global $con;
 
-
+    
     $barang = mysqli_query($con, "SELECT * FROM barang");
     $jual = mysqli_query($con, "SELECT SUM(jual) as jual FROM penjualan");
     $akun = mysqli_query($con, "SELECT * FROM user WHERE role='2'");
