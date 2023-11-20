@@ -9,7 +9,7 @@ if (isset($_GET['page'])) {
     if ($result) {
         echo "
 		<script>
-		alert('DATA BERHASIL DIHAPUS');
+		alert('DATA BERHASIL DI HAPUS');
 		window.location = 'm_user.php';
 		</script>
 		";
