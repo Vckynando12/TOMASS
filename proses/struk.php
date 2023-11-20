@@ -68,13 +68,9 @@ if ($penjualan) {
 
                 </tbody>
             </table>
-
             <h3>Total Pembayaran: <?= $total_bayar; ?></h3>
-
             <p><strong>Status Pembayaran:</strong> <?= $status_pembayaran; ?></p>
-
             <p>Terima kasih telah berbelanja!</p>
-
             <a href="../proses/keranjang.php" class="btn btn-primary">Kembali Berbelanja</a>
 
         <?php else : ?>
