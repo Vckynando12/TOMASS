@@ -51,7 +51,7 @@ require '../koneksi/koneksi.php';
                         <td>
                             <?= $row['satuan']; ?>
                         </td>
-                        <td><img src="../produk/<?= $row['gambar']; ?>" width="100"></td>
+                        <td><img src="data:image/jpeg;base64,<?= base64_encode($row['gambar']); ?>" width="100"></td>
                         <td>
                             <a href="edit_produk.php?kode=<?= $row['id_barang']; ?>" class="btn btn-warning"><i
                                     class="glyphicon glyphicon-edit"></i>Edit</a>
@@ -70,8 +70,6 @@ require '../koneksi/koneksi.php';
             Produk</a>
     </div>
 </div>
-<!-- Button trigger modal -->
-
 <br>
 <br>
 <br>
