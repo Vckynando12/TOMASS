@@ -69,7 +69,6 @@
 <?php
 include("../koneksi/koneksi.php");
 session_start();
-
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../public/login.php"); 
     exit();
@@ -104,10 +103,8 @@ if ($keranjang) {
 </head>
 
 <body>
-
     <div class="container mt-5">
         <h2>Checkout</h2>
-
         <?php if ($keranjang) : ?>
             <h3>Daftar Pesanan</h3>
             <table class="table">
@@ -132,12 +129,9 @@ if ($keranjang) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
             <h3>Grand Total: <?= $total_harga; ?></h3>
-
             <h3>Pastikan Pesanan Anda Sudah Benar</h3>
 
-            <!-- Formulir Pengiriman -->
             <form action="../proses/proses_checkout.php" method="post">
                 <label for="nama">Nama</label>
                 <input type="text" name="nama" required>
@@ -157,14 +151,10 @@ if ($keranjang) {
                 <button type="submit" name="order_now" class="btn btn-success">Order Now</button>
                 <button type="button" class="btn btn-danger" onclick="window.location.href='../proses/keranjang.php'">Cancel</button>
             </form>
-
         <?php else : ?>
             <p>Keranjang belanja Anda kosong.</p>
         <?php endif; ?>
-
     </div>
-
 </body>
-
 </html>
 
