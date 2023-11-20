@@ -7,5 +7,4 @@
         echo "Tidak terhubung ke MySQL".mysqli_connect_errno();
         exit();
     }
-
 ?>
