@@ -1,7 +1,14 @@
 <?php
-require '../koneksi/koneksi.php';
-?>
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +49,7 @@ require '../koneksi/koneksi.php';
                         aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Pengaturan</a></li>
-                        <li><a class="dropdown-item" href="#!">Keluar</a></li>
+                        <li><a class="dropdown-item" href="../proses/logout_proses.php">Keluar</a></li>
                     </ul>
                 </li>
             </ul>

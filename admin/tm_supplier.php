@@ -1,4 +1,11 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
 
 // Generate kode material

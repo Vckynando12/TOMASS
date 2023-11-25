@@ -19,7 +19,7 @@ if (isset($_POST['loginbtn'])){
 
 
             if($data['level'] == 1){
-                header('location: ../admin/dashboard_admin.php');
+                header('location: ../admin/index.php');
                 exit();
             }
             elseif($data['level'] == 2 || $data['level'] == 3) {

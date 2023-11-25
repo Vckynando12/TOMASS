@@ -1,18 +1,50 @@
+<!-- DONE -->
+
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
 require '../koneksi/koneksi.php';
 
-if (isset($_GET['page'])) {
-    $kode = $_GET['id_supplier'];
+// hapus
+if (isset($_GET['page']) && isset($_GET['kode'])) {
+    $kode = $_GET['kode']; 
     $result = mysqli_query($con, "DELETE FROM supplier WHERE id_supplier = '$kode'");
 
     if ($result) {
         echo "
 		<script>
+		window.location = 'm_supplier.php';
 		alert('DATA BERHASIL DI HAPUS');
-		window.location = 'm_user.php';
 		</script>
 		";
+    }
+}
+
+// tambah
+$randomNumber = rand(10, 9999);
+$format = "S" . $randomNumber;
+if (isset($_POST['add'])) {
+    $namasupp = $_POST['nama_supplier'];
+    $alamat = $_POST['alamat'];
+    $telpon = $_POST['telpon'];
+
+    $result = mysqli_query($con, "INSERT INTO supplier (id_supplier, nama_supplier, alamat, telpon) VALUES ('$format', '$namasupp', '$alamat', '$telpon')");
+
+    if ($result) {
+        echo "
+            <script>
+            alert('DATA BERHASIL DITAMBAHKAN');
+            window.location = 'm_supplier.php';
+            </script>
+        ";
+    } else {
+        echo "Gagal menambahkan supplier.";
     }
 }
 
@@ -23,6 +55,9 @@ if (isset($_GET['page'])) {
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data supplier</h1>
         <hr>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+            Tambah
+        </button>
 
         <table class="table table-striped">
             <thead>
@@ -58,9 +93,9 @@ if (isset($_GET['page'])) {
                         <td>
                             <?= $row['telpon']; ?>
                         </td>
-                        <td><a href="m_supplier.php?kode=<?php echo $row['id_supplier']; ?>&page=del" class="btn btn-danger"
-                                onclick="return confirm('Yakin Ingin Menghapus Data ?')"><i
-                                    class="glyphicon glyphicon-trash"></i>Hapus </a></td>
+                        <td>
+                        <a href="m_supplier.php?kode=<?php echo $row['id_supplier']; ?>&page=del" class="btn btn-danger" onclick="return confirm('Yakin Ingin Menghapus Data ?')"> <i class="glyphicon glyphicon-trash"></i>Hapus</a>
+                        </td>
                     </tr>
                     <?php
                     $no++;
@@ -72,34 +107,30 @@ if (isset($_GET['page'])) {
     </div>
     <!-- Button trigger modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <!-- The Modal -->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Tambah Barang Masuk</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <form action="m_supplier.php" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <input type="text" name="nama_supplier" placeholder="nama supplier" class="form-control"
+                                        require>
+                                    <br>
+                                    <input type="num" name="alamat" placeholder="Alamat" class="form-control" require>
+                                    <br>
+                                    <input type="num" name="telpon" placeholder="Nomor tlp" class="form-control" require>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary" name="add">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>

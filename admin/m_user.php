@@ -1,18 +1,53 @@
+<!-- DONE -->
+
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
 require '../koneksi/koneksi.php';
 
-if (isset($_GET['page'])) {
-    $kode = $_GET['id_user'];
-    $result = mysqli_query($conn, "DELETE FROM user WHERE id_user = '$kode'");
+// hapus
+if (isset($_GET['page']) && isset($_GET['kode'])) {
+    $kode = $_GET['kode']; 
+    $result = mysqli_query($con, "DELETE FROM user WHERE id_user = '$kode'");
 
     if ($result) {
         echo "
 		<script>
-		alert('DATA BERHASIL DIHAPUS');
 		window.location = 'm_user.php';
+		alert('DATA BERHASIL DI HAPUS');
 		</script>
 		";
+    }
+}
+
+// tambah
+// $randomNumber = rand(10, 9999);
+// $format = "S" . $randomNumber;
+if (isset($_POST['add'])) {
+    $namauser = $_POST['Nama'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $pass = $_POST['password'];
+    $telpon = $_POST['telpon'];
+    $level = $_POST['level'];
+
+    $result = mysqli_query($con, "INSERT INTO user (Nama, email, username, password, telpon, level) VALUES ('$namauser', '$email', '$username', '$pass', '$telpon', '$level')");
+
+    if ($result) {
+        echo "
+            <script>
+            alert('DATA BERHASIL DITAMBAHKAN');
+            window.location = 'm_user.php';
+            </script>
+        ";
+    } else {
+        echo "Gagal menambahkan user.";
     }
 }
 
@@ -23,12 +58,14 @@ if (isset($_GET['page'])) {
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data User</h1>
         <hr>
-
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+            Tambah
+        </button>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Kode User</th>
+                    <!-- <th scope="col">Kode User</th> -->
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
@@ -45,13 +82,9 @@ if (isset($_GET['page'])) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <tr>
-
                         <th scope="row">
                             <?php echo $no; ?>
                         </th>
-                        <td>
-                            <?= $row['id_user']; ?>
-                        </td>
                         <td>
                             <?= $row['Nama']; ?>
                         </td>
@@ -84,34 +117,36 @@ if (isset($_GET['page'])) {
     </div>
     <!-- Button trigger modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Tambah Barang Masuk</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <form action="m_user.php" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <input type="text" name="Nama" placeholder="nama user" class="form-control" require>
+                                <br>
+                                <input type="email" name="email" placeholder="Email" class="form-control" require>
+                                <br>
+                                <input type="num" name="username" placeholder="Username" class="form-control" require>
+                                <br>
+                                <input type="Jumlah" name="password" placeholder="Password" class="form-control" require>
+                                <br>
+                                <input type="number" name="telpon" placeholder="Telpon" class="form-control" require>
+                                <br>
+                                <label for="level">Level:</label>
+                                <input type="number" name="level" placeholder="1 (admin) 2(user)" class="form-control" required pattern="[1-2]" title="Masukkan nilai 1 atau 2">
+                                <br>
+                                <button type="submit" class="btn btn-primary" name="add">Submit</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>

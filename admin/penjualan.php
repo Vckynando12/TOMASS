@@ -1,4 +1,11 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
 require '../koneksi/koneksi.php';
 ?>
@@ -7,9 +14,9 @@ require '../koneksi/koneksi.php';
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data Penjualan</h1>
         <hr>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+        <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
             Tambah
-        </button>
+        </button> -->
         <div class="card mb-4">
             <div class="card-body">
                 <table id="datatablesSimple" class="table">

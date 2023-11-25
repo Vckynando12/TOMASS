@@ -1,7 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
-
-
+require '../koneksi/koneksi.php';
 // Generate kode material
 $Kode_barang = mysqli_query($con, "SELECT id_barang FROM barang ORDER BY id_barang DESC");
 $data = mysqli_fetch_assoc($Kode_barang);
