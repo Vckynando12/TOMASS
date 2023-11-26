@@ -1,71 +1,4 @@
-<?php
-// include("../koneksi/koneksi.php");
-
-// session_start();
-
-// // Pengecekan apakah pengguna sudah login
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: ../public/login.php"); // Ganti dengan path menuju halaman login
-//     exit();
-// }
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['checkout'])) {
-//     $id_user_login = $_SESSION['user_id'];
-
-//     // Ambil data keranjang dan detail keranjang seperti pada halaman keranjang.php
-//     $query_keranjang = mysqli_query($con, "SELECT * FROM keranjang WHERE id_user = $id_user_login");
-//     $keranjang = mysqli_fetch_assoc($query_keranjang);
-
-//     if ($keranjang) {
-//         $id_keranjang = $keranjang['id_keranjang'];
-//         $query_detail_keranjang = mysqli_query($con, "SELECT * FROM detail_keranjang WHERE id_keranjang = '$id_keranjang'");
-//         $detail_keranjang = mysqli_fetch_all($query_detail_keranjang, MYSQLI_ASSOC);
-
-//         // Lakukan logika checkout di sini, misalnya:
-//         // - Buat data penjualan baru
-//         // - Simpan detail penjualan dari detail_keranjang
-//         // - Hitung total harga
-//         // - Hapus data dari detail_keranjang
-
-//         $total_harga = $keranjang['total_harga'];
-
-//         // Simpan data penjualan
-//         $query_penjualan = mysqli_query($con, "INSERT INTO penjualan (id_user, total_penjualan) VALUES ('$id_user_login', '$total_harga')");
-
-//         if ($query_penjualan) {
-//             // Ambil ID penjualan yang baru dibuat
-//             $id_penjualan = mysqli_insert_id($con);
-
-//             // Simpan detail penjualan
-//             foreach ($detail_keranjang as $detail) {
-//                 $id_barang = $detail['id_barang'];
-//                 $jumlah = $detail['jumlah'];
-//                 $total_barang = $detail['total_barang'];
-
-//                 mysqli_query($con, "INSERT INTO detail_penjualan (id_penjualan, id_barang, jumlah, subtotal) VALUES ('$id_penjualan', '$id_barang', '$jumlah', '$total_barang')");
-//             }
-
-//             // Hapus data dari detail_keranjang setelah checkout
-//             mysqli_query($con, "DELETE FROM detail_keranjang WHERE id_keranjang = '$id_keranjang'");
-
-//             echo "Checkout berhasil! Terima kasih atas pembelian Anda.";
-
-//             // Setelah berhasil checkout, redirect ke halaman sukses atau lainnya
-//             // Ganti pathnya sesuai kebutuhan
-//             header("Location: ../public/index.php");
-//             exit();
-//         } else {
-//             echo "Checkout gagal. Silakan coba lagi.";
-//         }
-//     } else {
-//         echo "Keranjang belanja kosong.";
-//     }
-// } else {
-//     // Redirect jika bukan POST request
-//     header("Location: ../path/ke/halaman/keranjang.php");
-//     exit();
-// }
-?>
+<!-- DONE -->
 <?php
 include("../koneksi/koneksi.php");
 session_start();
@@ -104,23 +37,23 @@ if ($keranjang) {
 
 <body>
     <div class="container mt-5">
-        <h2>Checkout</h2>
+        <h2 class="text-center">Checkout</h2>
         <?php if ($keranjang) : ?>
-            <h3>Daftar Pesanan</h3>
-            <table class="table">
+            <h3 class="text-center">Daftar Pesanan</h3>
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Sub Total</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Kuantitas</th>
+                        <th scope="col">Sub Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($detail_keranjang as $index => $detail) : ?>
                         <tr>
-                            <td><?= $index + 1; ?></td>
+                            <th scope="row"><?= $index + 1; ?></th>
                             <td><?= $detail['nama_barang']; ?></td>
                             <td><?= $detail['harga_jual']; ?></td>
                             <td><?= $detail['jumlah']; ?></td>
@@ -129,32 +62,79 @@ if ($keranjang) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <h3>Grand Total: <?= $total_harga; ?></h3>
-            <h3>Pastikan Pesanan Anda Sudah Benar</h3>
+            <h4 class="text-center">Grand Total: <?= $total_harga; ?></h4>
 
-            <form action="../proses/proses_checkout.php" method="post">
-                <label for="nama">Nama</label>
-                <input type="text" name="nama" required>
+            <div class="row mt-5">
+                <!-- Bagian Data Diri (Sebelah Kiri) -->
+                <div class="col-md-6 mb-3">
+                    <h4 class="title">Silahkan isi form di bawah ini</h4>
+                    <form class="row g-3" action="../proses/proses_checkout.php" method="post">
+                        <div class="col-md-12">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
 
-                <label for="provinsi">Provinsi</label>
-                <input type="text" name="provinsi" required>
+                        <div class="col-md-12">
+                            <label for="provinsi" class="form-label">Provinsi</label>
+                            <input type="text" class="form-control" id="provinsi" name="provinsi" required>
+                        </div>
 
-                <label for="kota">Kota</label>
-                <input type="text" name="kota" required>
+                        <div class="col-md-12">
+                            <label for="kota" class="form-label">Kota</label>
+                            <input type="text" class="form-control" id="kota" name="kota" required>
+                        </div>
 
-                <label for="alamat">Alamat</label>
-                <textarea name="alamat" rows="" required></textarea>
+                        <div class="col-md-12">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
+                        </div>
 
-                <label for="kode_pos">Kode Pos</label>
-                <input type="text" name="kode_pos" required>
+                        <div class="col-md-12">
+                            <label for="kode_pos" class="form-label">Kode Pos</label>
+                            <input type="text" class="form-control" id="kode_pos" name="kode_pos" required>
+                        </div>
 
-                <button type="submit" name="order_now" class="btn btn-success">Order Now</button>
-                <button type="button" class="btn btn-danger" onclick="window.location.href='../proses/keranjang.php'">Cancel</button>
-            </form>
-        <?php else : ?>
-            <p>Keranjang belanja Anda kosong.</p>
+                        <div class="col-md-12">
+                            <label for="kode_pos" class="form-label">Bukti Transfer</label><br>
+                            <input type="file" id="exampleInputFile" name="bukti_tf">
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" name="order_now">Order Now</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='../proses/keranjang.php'">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Bagian Rincian Pembayaran (Sebelah Kanan) -->
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title">Rincian Pembayaran</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Nominal Pembayaran: <?= $total_harga; ?></li>
+                                <li class="list-group-item text-primary">Nominal Transfer: <?= $total_harga; ?></li>
+                                <li class="list-group-item">Nomor rekening:
+                                    <ul>
+                                        <li>BCA : 2630833518</li>
+                                        <li>Nama : DIMAS FAJAR KATON PRAYOGO</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
     </div>
+
+    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
+
+
+
 

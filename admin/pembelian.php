@@ -34,7 +34,7 @@ if (isset($_POST['add_pembelian'])) {
         // echo "<script>window.location.href = '../admin/add_pembelian.php?id_pembelian=$id_pembelian';</script>";
         // exit();
         echo json_encode(['success' => true, 'id_pembelian' => $id_pembelian]);
-        echo "<script>window.location.href = '../admin/add_pembelian.php?id_pembelian=" . urlencode($id_pembelian) . "';</script>";
+        echo "<script>window.location.href = '../admin/add_pembelian.php';</script>";
         exit();
     } else {
         echo json_encode(['success' => false, 'message' => 'Gagal menambahkan pembelian.']);
@@ -69,6 +69,21 @@ if (isset($_POST['add_pembelian'])) {
             $("#search_barang").val("");
         });
     });
+
+    $(document).ready(function () {
+        $('.btn-detail').click(function () {
+            var idPembelian = $(this).data('idpembelian');
+            $.ajax({
+                type: "GET",
+                url: "../function/get_detail_pembelian.php",
+                data: { id_pembelian: idPembelian },
+                success: function (data) {
+                    $("#modal-body-detail").html(data);
+                }
+            });
+            $('#myModal2').modal('show');
+        });
+    });
 </script>
 
 <div id="layoutSidenav_content">
@@ -82,29 +97,47 @@ if (isset($_POST['add_pembelian'])) {
         <thead>
             <tr>
                 <th>ID Pembelian</th>
-                <th>ID User</th>
-                <th>ID Supplier</th>
+                <th>Nama User</th>
+                <th>Nama Supplier</th>
                 <th>Tanggal Pembelian</th>
                 <th>Total Pembelian</th>
                 <th>Detail</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-            $resultPembelian = mysqli_query($con, "SELECT * FROM pembelian");
-            while ($rowPembelian = mysqli_fetch_assoc($resultPembelian)) {
-                echo "<tr>";
-                echo "<td>{$rowPembelian['id_pembelian']}</td>";
-                echo "<td>{$rowPembelian['id_user']}</td>";
-                echo "<td>{$rowPembelian['id_supplier']}</td>";
-                echo "<td>{$rowPembelian['tanggal_pembelian']}</td>";
-                echo "<td>{$rowPembelian['total_pembelian']}</td>";
-                echo "<td><button class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#myModal2' onclick='showDetail(\"{$rowPembelian['id_pembelian']}\")'>Detail</button></td>";
-                echo "</tr>";
+        <?php
+        $resultPembelian = mysqli_query($con, "SELECT pembelian.*, user.Nama, supplier.nama_supplier 
+        FROM pembelian
+        JOIN user ON pembelian.id_user = user.id_user
+        JOIN supplier ON pembelian.id_supplier = supplier.id_supplier");
+    
+        while ($rowPembelian = mysqli_fetch_assoc($resultPembelian)) {
+            echo "<tr>";
+            echo "<td>{$rowPembelian['id_pembelian']}</td>";
+            echo "<td>{$rowPembelian['Nama']}</td>";
+            echo "<td>{$rowPembelian['nama_supplier']}</td>";
+            echo "<td>{$rowPembelian['tanggal_pembelian']}</td>";
+            echo "<td>{$rowPembelian['total_pembelian']}</td>";
+            echo "<td><button class='btn btn-primary btn-sm btn-detail' data-bs-toggle='modal' data-bs-target='#myModal2' data-idpembelian='{$rowPembelian['id_pembelian']}'>Detail</button></td>";
+            echo "</tr>";
             }
-            ?>
+        ?>
         </tbody>
     </table>
+    </div>
+</div>
+
+<!-- Modal show Detail Pembelian -->
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail Pembelian barang</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modal-body-detail">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -117,7 +150,6 @@ if (isset($_POST['add_pembelian'])) {
                 <h4 class="modal-title">Tambah Barang Masuk</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <!-- Modal body -->
             <form method="post" enctype="multipart/form-data" id="formPembelian">
                 <div class="modal-body">
                     <label for="id_supplier">Pilih Supplier:</label>
@@ -133,49 +165,6 @@ if (isset($_POST['add_pembelian'])) {
                     <button type="submit" class="btn btn-primary" id="btn-detailPembelian" name="add_pembelian">Next</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal show Detail Pembelian -->
-<div class="modal fade" id="myModal2">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Detail Pembelian barang</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <!-- Modal body -->
-                <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>ID Pembelian</th>
-                            <th>Nama Barang</th>
-                            <th>Tanggal Kadaluarsa</th>
-                            <th>Jumlah</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $resultDetailPembelian = mysqli_query($con, "SELECT * FROM detail_pembelian");
-                        while ($rowDetailPembelian = mysqli_fetch_assoc($resultDetailPembelian)) {
-                            echo "<tr>";
-                            echo "<td>{$rowDetailPembelian['id_detail_pembelian']}</td>";
-                            echo "<td>{$rowDetailPembelian['id_pembelian']}</td>";
-                            echo "<td>{$rowDetailPembelian['nama_barang']}</td>";
-                            echo "<td>{$rowDetailPembelian['tanggal_kadaluarsa']}</td>";
-                            echo "<td>{$rowDetailPembelian['jumlah']}</td>";
-                            echo "<td>{$rowDetailPembelian['subtotal']}</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                
-            </div>
         </div>
     </div>
 </div>

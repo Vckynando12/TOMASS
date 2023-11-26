@@ -26,6 +26,7 @@ if ($keranjang) {
     $kota = mysqli_real_escape_string($con, $_POST['kota']);
     $alamat = mysqli_real_escape_string($con, $_POST['alamat']);
     $kode_pos = mysqli_real_escape_string($con, $_POST['kode_pos']);
+    $bukti_tf = mysqli_real_escape_string($con, $_POST['bukti_tf']);
     $query_insert_penjualan = mysqli_query($con, "INSERT INTO penjualan (id_user, tanggal_penjualan, total_penjualan) VALUES ('$id_user_login', NOW(), '$total_harga')");
     $id_penjualan = mysqli_insert_id($con); 
 
@@ -37,7 +38,7 @@ if ($keranjang) {
         mysqli_query($con, "INSERT INTO detail_penjualan (id_penjualan, id_barang, jumlah, subtotal, provinsi, kota, alamat, kode_pos, nama) VALUES ('$id_penjualan', '$id_barang', '$jumlah', '$subtotal', '$provinsi', '$kota', '$alamat', '$kode_pos', '$nama')");
     }
 
-    mysqli_query($con, "INSERT INTO pembayaran (id_pembayaran, tgl_bayar, total_bayar, status) VALUES ('$id_penjualan', NOW(), '$total_harga', '0')");
+    mysqli_query($con, "INSERT INTO pembayaran (id_pembayaran, tgl_bayar, total_bayar, bukti_tf, status) VALUES ('$id_penjualan', NOW(), '$total_harga', '$bukti_tf' ,'0')");
     mysqli_query($con, "DELETE FROM keranjang WHERE id_keranjang = '$id_keranjang'");
     mysqli_query($con, "DELETE FROM detail_keranjang WHERE id_keranjang = '$id_keranjang'");
     header("Location: ../proses/struk.php?id_penjualan=$id_penjualan");
