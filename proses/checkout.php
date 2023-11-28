@@ -68,7 +68,7 @@ if ($keranjang) {
                 <!-- Bagian Data Diri (Sebelah Kiri) -->
                 <div class="col-md-6 mb-3">
                     <h4 class="title">Silahkan isi form di bawah ini</h4>
-                    <form class="row g-3" action="../proses/proses_checkout.php" method="post">
+                    <form class="row g-3" action="../proses/proses_checkout.php" method="post" enctype="multipart/form-data">
                         <div class="col-md-12">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama" required>
@@ -95,7 +95,8 @@ if ($keranjang) {
                         </div>
 
                         <div class="col-md-12">
-                            <label for="kode_pos" class="form-label">Bukti Transfer</label><br>
+                            <label for="exampleInputFile" class="form-label">Bukti Transfer</label><br>
+                            <!-- <input type="file" id="exampleInputFile" name="bukti_tf"> -->
                             <input type="file" id="exampleInputFile" name="bukti_tf">
                         </div>
 

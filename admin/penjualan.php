@@ -47,46 +47,33 @@ require '../koneksi/koneksi.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $nomor = 1;
-                        $ambil = $con->query("SELECT * FROM penjualan JOIN user ON penjualan.id_user=user.id_user");
-                        
-                        while ($pecah = $ambil->fetch_assoc()) {
-                            $id_penjualan = $pecah['id_penjualan'];
-                        
-                            $query_pembayaran = mysqli_query($con, "SELECT * FROM pembayaran WHERE id_pembayaran = '$id_penjualan'");
-                            $pembayaran = mysqli_fetch_assoc($query_pembayaran);
-                        
-                            if ($pembayaran) {
-                                $status_pembayaran = ($pembayaran['status'] == '1') ? 'Disetujui' : (($pembayaran['status'] == '2') ? 'Ditolak' : 'Menunggu Persetujuan');
-                            } else {
-                                $status_pembayaran = 'Menunggu Persetujuan';
-                            }
-                            ?>
-                            <tr>
-                                <!-- <td>
-                                    <?= $nomor++; ?>
-                                </td> -->
-                                <td>
-                                    <?= $pecah['id_penjualan']; ?>
-                                </td>
-                                <td>
-                                    <?= $pecah['username']; ?>
-                                </td>
-                                <td>
-                                    <?= $pecah['tanggal_penjualan']; ?>
-                                </td>
-                                <td>
-                                    <?= $pecah['total_penjualan']; ?>
-                                </td>
-                                <td>
-                                    <?= $status_pembayaran; ?>
-                                </td>
-                                <td>
-                                    <?php echo "<button class='btn btn-primary btn-sm btn-detail' data-bs-toggle='modal' data-bs-target='#myModal2' data-idpenjualan='{$pecah['id_penjualan']}'>Detail</button>";?>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                    <?php
+                    $nomor = 1;
+                    $ambil = $con->query("SELECT * FROM penjualan JOIN user ON penjualan.id_user=user.id_user 
+                                        LEFT JOIN pembayaran ON penjualan.id_penjualan = pembayaran.id_pembayaran
+                                        ORDER BY COALESCE(pembayaran.status, 0), penjualan.tanggal_penjualan DESC");
+
+                    while ($pecah = $ambil->fetch_assoc()) {
+                        $id_penjualan = $pecah['id_penjualan'];
+
+                        $status_pembayaran = 'Menunggu Persetujuan';
+
+                        if (isset($pecah['status'])) {
+                            $status_pembayaran = ($pecah['status'] == '1') ? 'Disetujui' : (($pecah['status'] == '2') ? 'Ditolak' : 'Menunggu Persetujuan');
+                        }
+                        ?>
+                        <tr>
+                            <td><?= $pecah['id_penjualan']; ?></td>
+                            <td><?= $pecah['username']; ?></td>
+                            <td><?= $pecah['tanggal_penjualan']; ?></td>
+                            <td><?= $pecah['total_penjualan']; ?></td>
+                            <td><?= $status_pembayaran; ?></td>
+                            <td>
+                                <?php echo "<button class='btn btn-primary btn-sm btn-detail' data-bs-toggle='modal' data-bs-target='#myModal2' data-idpenjualan='{$pecah['id_penjualan']}'>Detail</button>";?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
                     </tbody>
                 </table>
             </div>

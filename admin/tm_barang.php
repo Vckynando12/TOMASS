@@ -89,4 +89,4 @@ if ($data && isset($data['id_barang'])) {
     </div>
 </div>
 </div>
-<?php include '../layout/footer.php'; ?>
+<?php include '../layout/footer.php'; ?>git 

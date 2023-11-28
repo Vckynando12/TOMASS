@@ -19,8 +19,6 @@ if (isset($_POST['kirim'])) {
     $harga_beli = $_POST['harga_beli'];
     $stok = $_POST['stok'];
     $satuan = $_POST['satuan'];
-    // $gambar_temp = $_FILES['gambar']['tmp_name'];
-    // $gambar = addslashes(file_get_contents($gambar_temp));
     $id_barang = $format;
 
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK) {

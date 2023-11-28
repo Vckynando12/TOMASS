@@ -15,7 +15,7 @@ if (!isset($_SESSION['login'])) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Dashboard - Admin</title>
+    <title>Tomass</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -72,17 +72,33 @@ if (!isset($_SESSION['login'])) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Penjualan
                             </a>
-                            <a class="nav-link" href="laporan.php">
+                            <!-- <a class="nav-link" href="laporan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Laporan
-                            </a>
+                            </a> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                data-bs-target="#collapseLayoutsPenjualan" aria-expanded="false" aria-controls="collapseLayoutsPenjualan">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Laporan
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsPenjualan" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="laporan_penjualan.php">Penjualan</a>
+                                    <a class="nav-link" href="laporan_pembelian.php">Pembelian</a>
+                                    <div class="dropdown dropright">
+                                    </div>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#collapseLayoutsMaster" aria-expanded="false" aria-controls="collapseLayoutsMaster">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Master
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            <div class="collapse" id="collapseLayoutsMaster" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="m_barang.php">Barang</a>
