@@ -71,9 +71,14 @@
 //     die();
 // }
 
-session_start();
 include('../koneksi/koneksi.php');
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 if (isset($_POST['productId']) && isset($_POST['quantity'])) {
     if (!isset($_SESSION['cart_request_in_progress']) || !$_SESSION['cart_request_in_progress']) {
         $_SESSION['cart_request_in_progress'] = true;

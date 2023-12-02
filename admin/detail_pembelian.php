@@ -1,4 +1,11 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 include '../layout/header.php';
 require '../koneksi/koneksi.php';
 
@@ -14,7 +21,8 @@ require '../koneksi/koneksi.php';
             // Gunakan mysqli_real_escape_string untuk mencegah SQL injection
             $id_pembelian = $con->real_escape_string($_GET['id_pembelian']);
 
-            $ambil = $con->query("SELECT * FROM pembelian JOIN supplier ON pembelian.id_supplier=supplier.id_supplier WHERE pembelian.id_pembelian='$id_pembelian'");
+            $ambil = $con->query("SELECT * FROM pembelian JOIN supplier ON pembelian.id_supplier=supplier.id_supplier
+            WHERE pembelian.id_pembelian='$id_pembelian'");
 
             // Periksa apakah ada hasil yang ditemukan
             if ($ambil->num_rows > 0) {

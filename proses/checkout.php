@@ -1,9 +1,11 @@
 <!-- DONE -->
 <?php
 include("../koneksi/koneksi.php");
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../public/login.php"); 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
     exit();
 }
 $id_user_login = $_SESSION['user_id'];
@@ -38,7 +40,7 @@ if ($keranjang) {
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Checkout</h2>
-        <?php if ($keranjang) : ?>
+        <?php if ($keranjang): ?>
             <h3 class="text-center">Daftar Pesanan</h3>
             <table class="table table-striped">
                 <thead>
@@ -51,24 +53,37 @@ if ($keranjang) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($detail_keranjang as $index => $detail) : ?>
+                    <?php foreach ($detail_keranjang as $index => $detail): ?>
                         <tr>
-                            <th scope="row"><?= $index + 1; ?></th>
-                            <td><?= $detail['nama_barang']; ?></td>
-                            <td><?= $detail['harga_jual']; ?></td>
-                            <td><?= $detail['jumlah']; ?></td>
-                            <td><?= $detail['total']; ?></td>
+                            <th scope="row">
+                                <?= $index + 1; ?>
+                            </th>
+                            <td>
+                                <?= $detail['nama_barang']; ?>
+                            </td>
+                            <td>
+                                <?= number_format($detail['harga_jual']); ?>
+                            </td>
+                            <td>
+                                <?= $detail['jumlah']; ?>
+                            </td>
+                            <td>
+                                <?= number_format($detail['total']); ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <h4 class="text-center">Grand Total: <?= $total_harga; ?></h4>
+            <h4 class="text-center">Grand Total:
+                <?= $total_harga; ?>
+            </h4>
 
             <div class="row mt-5">
                 <!-- Bagian Data Diri (Sebelah Kiri) -->
                 <div class="col-md-6 mb-3">
                     <h4 class="title">Silahkan isi form di bawah ini</h4>
-                    <form class="row g-3" action="../proses/proses_checkout.php" method="post" enctype="multipart/form-data">
+                    <form class="row g-3" action="../proses/proses_checkout.php" method="post"
+                        enctype="multipart/form-data">
                         <div class="col-md-12">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama" required>
@@ -102,7 +117,8 @@ if ($keranjang) {
 
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary" name="order_now">Order Now</button>
-                            <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='../proses/keranjang.php'">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary"
+                                onclick="window.location.href='../proses/keranjang.php'">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -115,8 +131,12 @@ if ($keranjang) {
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Nominal Pembayaran: <?= $total_harga; ?></li>
-                                <li class="list-group-item text-primary">Nominal Transfer: <?= $total_harga; ?></li>
+                                <li class="list-group-item">Nominal Pembayaran:
+                                    <?= number_format($total_harga); ?>
+                                </li>
+                                <li class="list-group-item text-primary">Nominal Transfer:
+                                    <?= number_format($total_harga); ?>
+                                </li>
                                 <li class="list-group-item">Nomor rekening:
                                     <ul>
                                         <li>BCA : 2630833518</li>
@@ -135,7 +155,3 @@ if ($keranjang) {
 </body>
 
 </html>
-
-
-
-

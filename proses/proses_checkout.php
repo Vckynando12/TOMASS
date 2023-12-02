@@ -57,10 +57,11 @@
 
 <?php
 include("../koneksi/koneksi.php");
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../public/login.php");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
     exit();
 }
 

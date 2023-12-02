@@ -1,0 +1,46 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.nav-link {
+  color: white;
+}
+
+.card {
+  margin-top: 50px;
+}
+
+.card-header {
+  background-color: #82ae46;
+  /* Green header color */
+  color: #fff;
+}
+
+.table th,
+.table td {
+  text-align: center;
+}
+
+img.product-image {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+.btn-update {
+  margin-right: 5px;
+}
+
+.btn-checkout {
+  margin-top: 10px;
+}
+
+/* Adjusted table styling */
+table {
+  width: 100%;
+}
+
+th,
+td {
+  padding: 10px;
+}

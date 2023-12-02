@@ -2,7 +2,13 @@
 include '../layout/header.php';
 include 'function.php';
 require '../koneksi/koneksi.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 ?>
 
 <div id="layoutSidenav_content">

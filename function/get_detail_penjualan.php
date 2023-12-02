@@ -36,6 +36,7 @@
 </script>
 
 <?php
+require '../koneksi/koneksi.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -43,7 +44,6 @@ if (!isset($_SESSION['login'])) {
     header('location: ../public/login.php');
     exit();
 }
-require '../koneksi/koneksi.php';
 
 if (isset($_GET['id_penjualan'])) {
     $id_penjualan = $_GET['id_penjualan'];

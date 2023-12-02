@@ -29,6 +29,9 @@ if(isset($_POST['submit'])){
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
         <h2 style=" width: 100%; border-bottom: 4px solid gray; padding-bottom: 5px;"><b>Laporan Penjualan</b></h2>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Laporan/Penjualan</li>
+        </ol>
         <div class="row print">
             <div class="col-md-9">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">

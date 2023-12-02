@@ -89,6 +89,9 @@ if (isset($_POST['add_pembelian'])) {
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data Pembelian</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Pembelian</li>
+        </ol>
         <hr>
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
             Tambah

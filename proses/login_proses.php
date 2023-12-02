@@ -17,7 +17,6 @@ if (isset($_POST['loginbtn'])){
             $_SESSION['user_id'] = $data['id_user'];
             $_SESSION['level'] = $data['level'];
 
-
             if($data['level'] == 1){
                 header('location: ../admin/index.php');
                 exit();
@@ -29,10 +28,19 @@ if (isset($_POST['loginbtn'])){
         }
         else{
             $password_error = true;
+            $_SESSION['message'] = "Password salah, silakan coba lagi.";
+            $_SESSION['redirect'] = true;
         }
     }
     else{
         $account_not_found = true;
+        $_SESSION['message'] = "Akun tidak ditemukan. Silakan periksa kembali email Anda.";
     }
+}
+
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('{$_SESSION['message']}'); setTimeout(function(){ window.location.href = '../public/login.php'; }, 500);</script>";
+    unset($_SESSION['message']);
+    unset($_SESSION['redirect']);
 }
 ?>

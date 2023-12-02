@@ -1,35 +1,31 @@
 .navstyle {
-    background-color: #B0D9B1 !important;
+  background-color: #b0d9b1 !important;
 }
 
 .navbar-brand {
-    font-size: x-large;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: x-large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .navbar-nav > li {
-    display: inline-block;
-    margin-right: 5px;
+  display: inline-block;
+  margin-right: 5px;
 }
 
 .custom-image {
-    max-width: 200px;
-    max-height: 200px;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  max-width: 200px;
+  max-height: 200px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-
-
 .barang-item {
-    cursor: pointer;
-    padding: 8px;
-    border-bottom: 1px solid #eee;
+  cursor: pointer;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
 .barang-item:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
-
-

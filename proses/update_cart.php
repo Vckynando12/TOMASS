@@ -1,6 +1,12 @@
 <?php
-session_start();
 include('../koneksi/koneksi.php');
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header('location: ../public/login.php');
+    exit();
+}
 
 if (isset($_POST['update'])) {
     $id_detail_keranjang = $_POST['id_detail_keranjang'];

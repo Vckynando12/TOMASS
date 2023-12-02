@@ -1,4 +1,5 @@
 <?php
+require '../koneksi/koneksi.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -6,7 +7,6 @@ if (!isset($_SESSION['login'])) {
     header('location: ../public/login.php');
     exit();
 }
-require '../koneksi/koneksi.php';
 // FUNGSI BARANG
 
 $randomNumber = rand(100, 999);

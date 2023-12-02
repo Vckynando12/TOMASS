@@ -57,6 +57,9 @@ if (isset($_POST['add'])) {
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data User</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Master/User</li>
+        </ol>
         <hr>
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
             Tambah

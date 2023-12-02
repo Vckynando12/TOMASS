@@ -1,4 +1,5 @@
 <?php
+require '../koneksi/koneksi.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,7 +10,6 @@ if (!isset($_SESSION['login'])) {
 }
 
 // include '../layout/header.php';
-require '../koneksi/koneksi.php';
 
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());

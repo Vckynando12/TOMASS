@@ -1,4 +1,5 @@
 <?php
+require '../koneksi/koneksi.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -6,7 +7,6 @@ if (!isset($_SESSION['login'])) {
     header('location: ../public/login.php');
     exit();
 }
-require '../koneksi/koneksi.php';
 // HAPUS BARANG
 if (isset($_GET['hapus_kode'])) {
     $id_barang_hapus = $_GET['hapus_kode'];
