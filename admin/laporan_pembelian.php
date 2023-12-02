@@ -25,6 +25,10 @@ if (isset($_POST['submit'])) {
         }
     }
 </style>
+<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/c79e220d71.js" crossorigin="anonymous"></script>
 
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
@@ -47,14 +51,14 @@ if (isset($_POST['submit'])) {
                 </form>
             </div>
             <div class="col-md-3">
-                <form action="exp_pembelian.php" method="POST">
+                <form action="laporan_pembelian.php" method="POST">
                     <table>
                         <tr>
                             <td><input type="hidden" name="date1" class="form-control" value="<?= $date1; ?>"></td>
                             <td><input type="hidden" name="date2" class="form-control" value="<?= $date2; ?>"></td>
-                            <!-- <td><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save-file"></i> Export to Excel</button></td> -->
-                            <td> &nbsp;</td>
-                            <td><a href="" onclick="window.print()" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Cetak</a></td>
+                            <td><button type="submit" onclick="window.print()" class="btn btn-success"><i class="fa-solid fa-print"></i> Cetak</button></td>
+                            <!-- <td> &nbsp;</td> -->
+                            <!-- <td><button href="" onclick="window.print()" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Cetak</button></td> -->
                         </tr>
                     </table>
                 </form>
@@ -98,7 +102,7 @@ if (isset($_POST['submit'])) {
                 }
             ?>
                 <tr>
-                    <td colspan="5" class="text-right"><b>Total Pembelian = <?= $total; ?></b></td>
+                    <td colspan="6" class="text-right"><b>Total Pembelian = <?= $total; ?></b></td>
                 </tr>
             <?php } ?>
         </table>

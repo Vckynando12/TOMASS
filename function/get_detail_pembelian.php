@@ -29,15 +29,17 @@ if (isset($_GET['id_pembelian'])) {
         </thead>
         <tbody>";
 
-    while ($rowDetailPembelian = mysqli_fetch_assoc($resultDetailPembelian)) {
-        echo "<tr>";
-        echo "<td>{$rowDetailPembelian['id_pembelian']}</td>";
-        echo "<td>{$rowDetailPembelian['nama_barang']}</td>";
-        echo "<td>{$rowDetailPembelian['tanggal_kadaluarsa']}</td>";
-        echo "<td>{$rowDetailPembelian['jumlah']}</td>";
-        echo "<td>{$rowDetailPembelian['subtotal']}</td>";
-        echo "</tr>";
-    }
+        while ($rowDetailPembelian = mysqli_fetch_assoc($resultDetailPembelian)) {
+            echo "<tr>";
+            echo "<td>{$rowDetailPembelian['id_pembelian']}</td>";
+            echo "<td>{$rowDetailPembelian['nama_barang']}</td>";
+            echo "<td>{$rowDetailPembelian['tanggal_kadaluarsa']}</td>";
+            echo "<td>{$rowDetailPembelian['jumlah']}</td>";
+            echo "<td>{$rowDetailPembelian['subtotal']}</td>";
+            echo "<td><button class='btn btn-sm btn-delete-item' data-idpembelian='{$idPembelian}' data-iditem='{$rowDetailPembelian['id_detail_pembelian']}'><i class='fa-solid fa-trash-can'></i></button></td>";
+            echo "</tr>";
+        }
+        
 
     echo "</tbody></table>";
 

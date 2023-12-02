@@ -48,14 +48,14 @@ if(isset($_POST['submit'])){
                 
             </div>
             <div class="col-md-3">
-                <form action="exp_penjualan.php" method="POST">
-                    <table>
+                <form action="laporan_penjualan.php" method="POST">
+                <table>
                         <tr>
                             <td><input type="hidden" name="date1" class="form-control" value="<?= $date1; ?>"></td>
                             <td><input type="hidden" name="date2" class="form-control" value="<?= $date2; ?>"></td>
-                            <!-- <td><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save-file"></i> Export to Excel</button></td> -->
-                            <td> &nbsp;</td>
-                            <td><a href="" onclick="window.print()" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Cetak</a></td>
+                            <td><button type="submit" onclick="window.print()" class="btn btn-success"><i class="fa-solid fa-print"></i> Cetak</button></td>
+                            <!-- <td> &nbsp;</td> -->
+                            <!-- <td><button href="" onclick="window.print()" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Cetak</button></td> -->
                         </tr>
                     </table>
                 </form>

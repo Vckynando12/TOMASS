@@ -83,9 +83,34 @@ if (isset($_POST['add_pembelian'])) {
             });
             $('#myModal2').modal('show');
         });
+
+        $(document).on("click", ".btn-delete-item", function () {
+            var idPembelian = $(this).data("idpembelian");
+            var idItem = $(this).data("iditem");
+
+            if (confirm("Apakah Anda yakin ingin menghapus item ini?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "../function/delete_item_pembelian.php",
+                    data: { id_pembelian: idPembelian, id_item: idItem },
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        alert(result.message);
+                        if (result.success) {
+                            location.reload();
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error saat menghapus item: " + error);
+                        alert("Error saat menghapus item: " + error);
+                    }
+                });
+            }
+
+        });
     });
 </script>
-
+<script src="https://kit.fontawesome.com/c79e220d71.js" crossorigin="anonymous"></script>
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data Pembelian</h1>
@@ -139,6 +164,7 @@ if (isset($_POST['add_pembelian'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="modal-body-detail">
+                <!-- <a class="btn"><i class="fa-solid fa-trash-can"></i></a> -->
             </div>
         </div>
     </div>
