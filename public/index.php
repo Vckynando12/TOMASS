@@ -10,6 +10,7 @@ $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,6 +66,7 @@ include '../proses/produk_slider.php'
 <?php
 include '../public/home.php';
 ?>
+<script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 

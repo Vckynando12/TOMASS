@@ -2,10 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (!isset($_SESSION['login'])) {
-    header('location: ../public/login.php');
-    exit();
-}
+
 include("../koneksi/koneksi.php");
 if (isset($_SESSION['username']) && is_array($_SESSION['username'])) {
     $user = $_SESSION['username'];
@@ -76,6 +73,22 @@ if (isset($_SESSION['username']) && is_array($_SESSION['username'])) {
         border: 1px solid rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
+    .header-logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .logo img {
+        max-height: 40px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 </style>
 
 </head>
@@ -86,7 +99,11 @@ if (isset($_SESSION['username']) && is_array($_SESSION['username'])) {
     <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light mb-2" id="ftco-navbar">
         <div class="header-logo">
             <div class="logo">
-                <ul><a href="../public/index.php"><img src="../assets/image/tomasslogo.jpg" alt=""></a></ul>
+                <ul>
+                    <a href="../public/index.php">
+                        <img src="../assets/image/logoHeader.png" alt="">
+                    </a>
+                </ul>
             </div>
         </div>
 

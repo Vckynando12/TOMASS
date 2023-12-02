@@ -48,6 +48,9 @@
                 <a href="../public/index.php" class="text-dark">Home</a>
               </p>
               <p>
+                <a href="../proses/riwayat_pesanan.php" class="text-dark">Pesanan saya</a>
+              </p>
+              <p>
                 <a href="../public/about.php" class="text-dark">About</a>
               </p>
               <p>

@@ -35,7 +35,14 @@ $(document).ready(function() {
                         alert(response.message);
                         location.reload();
                     } else {
-                        alert(response.message);
+                        if (response.redirect) {
+                            alert(response.message);
+                            setTimeout(function() {
+                                window.location.href = response.redirect;
+                            }, 1000);
+                        } else {
+                            alert(response.message);
+                        }
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

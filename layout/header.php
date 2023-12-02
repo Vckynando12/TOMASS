@@ -60,7 +60,7 @@ if (!isset($_SESSION['login'])) {
                         <i class="fas fa-user fa-fw"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Pengaturan</a></li>
+                        <!-- <li><a class="dropdown-item" href="#!">Pengaturan</a></li> -->
                         <li><a class="dropdown-item" href="../proses/logout_proses.php">Keluar</a></li>
                     </ul>
                 </li>
