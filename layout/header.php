@@ -38,7 +38,7 @@ if (!isset($_SESSION['login'])) {
     <div class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #618264;">
             <!-- Navbar Brand/navbar atas-->
-            <a class="navbar-brand ps-3" href="../admin/index.php"><img src="../assets/image/logoHeaderAdmin.png"></a>
+            <a class="navbar-brand ps-3" href="../admin/index.php"><img src="../assets/image/logoHeader2.png"></a>
             <!-- Sidebar Toggle/pembuka penutup navbar samping-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                     class="fas fa-bars"></i></button>
