@@ -139,8 +139,8 @@ if ($keranjang) {
                                 </li>
                                 <li class="list-group-item">Nomor rekening:
                                     <ul>
-                                        <li>BCA : 2630833518</li>
-                                        <li>Nama : DIMAS FAJAR KATON PRAYOGO</li>
+                                        <li>BRI : 6246 0102 7139 539</li>
+                                        <li>Nama : NISWAH TRIAS QUROTUL A YUN</li>
                                     </ul>
                                 </li>
                             </ul>

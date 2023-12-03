@@ -11,7 +11,7 @@ $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
         <div class="row">
             <div class="position-relative mr-3 box-affix bg-affix2">
                 <div class="line1"></div>
-                <h4>Spesial Diskon</h4>
+                <h4>Spesial Recomended</h4>
             </div>
         </div>
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">

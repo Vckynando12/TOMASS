@@ -21,7 +21,7 @@ if (isset($_POST['loginbtn'])){
                 header('location: ../admin/index.php');
                 exit();
             }
-            elseif($data['level'] == 2 || $data['level'] == 3) {
+            elseif($data['level'] == 2) {
                 header('location: ../public/index.php');
                 exit();
             }
