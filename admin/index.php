@@ -52,7 +52,7 @@ if ($result) {
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="card bg-success text-white mb-4 d-flex align-items-center justify-content-center">
+                <div class="card text-white mb-4 d-flex align-items-center justify-content-center" style="background-color: #618264;">
                     <div class="card-body mb-2">
                         <strong>Keuntungan hari ini</strong>
                     </div>
@@ -84,5 +84,3 @@ if ($result) {
         </div>
     </div>
 </div>
-
-<?php include '../layout/footer.php'; ?>
