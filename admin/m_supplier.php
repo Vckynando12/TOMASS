@@ -13,7 +13,7 @@ require '../koneksi/koneksi.php';
 
 // hapus
 if (isset($_GET['page']) && isset($_GET['kode'])) {
-    $kode = $_GET['kode']; 
+    $kode = $_GET['kode'];
     $result = mysqli_query($con, "DELETE FROM supplier WHERE id_supplier = '$kode'");
 
     if ($result) {
@@ -61,79 +61,85 @@ if (isset($_POST['add'])) {
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
             Tambah
         </button>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Supplier</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Alamat</th>
-                    <th scope="col">Telepon</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $result = mysqli_query($con, "SELECT * FROM supplier order by id_supplier asc");
-                $no = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
+        <div class="card-body">
+            <br>
+            <table id="datatablesSimple">
+                <thead>
                     <tr>
-
-                        <th scope="row">
-                            <?php echo $no; ?>
-                        </th>
-                        <td>
-                            <?= $row['id_supplier']; ?>
-                        </td>
-                        <td>
-                            <?= $row['nama_supplier']; ?>
-                        </td>
-                        <td>
-                            <?= $row['alamat']; ?>
-                        </td>
-                        <td>
-                            <?= $row['telpon']; ?>
-                        </td>
-                        <td>
-                        <a href="m_supplier.php?kode=<?php echo $row['id_supplier']; ?>&page=del" class="btn btn-danger" onclick="return confirm('Yakin Ingin Menghapus Data ?')"> <i class="glyphicon glyphicon-trash"></i>Hapus</a>
-                        </td>
+                        <th scope="col">No</th>
+                        <th scope="col">Kode Supplier</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">Telepon</th>
+                        <th scope="col">Action</th>
                     </tr>
+                </thead>
+                <tbody>
                     <?php
-                    $no++;
-                }
-                ?>
-            </tbody>
-        </table>
+                    $result = mysqli_query($con, "SELECT * FROM supplier order by id_supplier asc");
+                    $no = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <tr>
 
-    </div>
-    <!-- Button trigger modal -->
+                            <th scope="row">
+                                <?php echo $no; ?>
+                            </th>
+                            <td>
+                                <?= $row['id_supplier']; ?>
+                            </td>
+                            <td>
+                                <?= $row['nama_supplier']; ?>
+                            </td>
+                            <td>
+                                <?= $row['alamat']; ?>
+                            </td>
+                            <td>
+                                <?= $row['telpon']; ?>
+                            </td>
+                            <td>
+                                <a href="m_supplier.php?kode=<?php echo $row['id_supplier']; ?>&page=del"
+                                    class="btn btn-danger" onclick="return confirm('Yakin Ingin Menghapus Data ?')"> <i
+                                        class="glyphicon glyphicon-trash"></i>Hapus</a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                    }
+                    ?>
+                </tbody>
+            </table>
 
-                <!-- The Modal -->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+        </div>
+        <!-- Button trigger modal -->
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Tambah Barang Masuk</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                            <!-- Modal body -->
-                            <form action="m_supplier.php" method="post" enctype="multipart/form-data">
-                                <div class="modal-body">
-                                    <input type="text" name="nama_supplier" placeholder="nama supplier" class="form-control"
-                                        require>
-                                    <br>
-                                    <input type="num" name="alamat" placeholder="Alamat" class="form-control" require>
-                                    <br>
-                                    <input type="num" name="telpon" placeholder="Nomor tlp" class="form-control" require>
-                                    <br>
-                                    <button type="submit" class="btn btn-primary" name="add">Submit</button>
-                                </div>
-                            </form>
-                        </div>
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Barang Masuk</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
+
+                    <!-- Modal body -->
+                    <form action="m_supplier.php" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <input type="text" name="nama_supplier" placeholder="nama supplier" class="form-control"
+                                require>
+                            <br>
+                            <input type="num" name="alamat" placeholder="Alamat" class="form-control" require>
+                            <br>
+                            <input type="num" name="telpon" placeholder="Nomor tlp" class="form-control" require>
+                            <br>
+                            <button type="submit" class="btn btn-primary" name="add">Submit</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include '../layout/footer.php'; ?>

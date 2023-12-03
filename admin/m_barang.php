@@ -26,7 +26,7 @@ $format = "B" . $randomNumber;
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
             Tambah
         </button>
-        <table class="table table-striped">
+        <table class="table table-striped" id="datatablesSimple">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -125,3 +125,4 @@ $format = "B" . $randomNumber;
     </div>
   </div>
 </div>
+<?php include '../layout/footer.php'?>
