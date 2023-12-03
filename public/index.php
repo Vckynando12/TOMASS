@@ -31,8 +31,8 @@ $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
     </style>
 </head>
 
-<body style="background-color: #FFDEE9;
-background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);">
+<body style="background-color: #FFFFFF;
+background-image: linear-gradient(0deg, #FFFFFF 0%, #B5FFFC 100%);">
     <!--Carousel-->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">

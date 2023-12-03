@@ -54,22 +54,22 @@ include '../proses/header.php';
             <div class="w-100"></div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Address:</span> Jl.Raya Kesamben</p>
+                    <p><span>Address:</span> Jl.Raya Kesamben Desa Kesamben, Kecamatan Kesamben, Kabupaten Jombang</p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Wa :</span> <a href="https://wa.me/qr/BM3RGQWY2TUEE1">+ 085 781 937 953</a></p>
+                    <p><span>Wa :</span> <a href="https://wa.me/+6285781937953"> +62 85 781 937 953 </a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">Tomass@gmail.com</a></p>
+                    <p><span>Email:</span> <a href="mailto:niswahayun8@gmail.com">niswahayun8@gmail.com</a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Instagram:</span> <a href="https:/www.instagram.com/side__id/">Berrusaha</a></p>
+                    <p><span>Instagram:</span> <a href="https://www.instagram.com/berrusaha.team/">Berrusaha Team</a></p>
                 </div>
             </div>
         </div>
