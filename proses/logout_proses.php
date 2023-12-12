@@ -1,6 +1,9 @@
 <?php
-    session_start();
+session_start();
     session_unset();
+
     session_destroy();
+
     header('location: ../public/login.php');
+
 ?>
