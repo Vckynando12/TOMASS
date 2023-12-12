@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/image/logo.ico">
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="Stylesheet" href="../assets/css/style_login.css">
@@ -19,43 +20,43 @@
                     <h2 class="title">Login</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" name="email" id="email" placeholder="Masukkan email" />
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan email" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" class="form-control" name="password" id="password"
-                            placeholder="Masukkan kata sandi" />
+                            placeholder="Masukkan kata sandi" required>
                     </div>
                     <button class="btn mt-3 text-white" type="submit" name="loginbtn">Masuk</button>
                 </form>
                 <form action="../proses/register_proses.php" class="sign-up-form" method="post">
                     <h2 class="title">Daftar</h2>
                     <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" name="email" id="email" placeholder="Masukkan email">
-                    </div>
-                    <div class="input-field">
                         <i class="fas fa-envelope"></i>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan email" required>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
                         <input type="text" class="form-control" name="username" id="username"
-                            placeholder="Masukkan username">
+                            placeholder="Masukkan username" required>
                     </div>
                     <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama lengkap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama lengkap" required>
                     </div>
                     <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Nomor telepon">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <input type="number" class="form-control" name="telepon" id="telepon" placeholder="Nomor telepon" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" class="form-control" name="password" id="password"
-                            placeholder="Password">
+                            placeholder="Password" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" class="form-control" name="k_password" id="k_password"
-                            placeholder="Konfirmasi Password">
+                            placeholder="Konfirmasi Password" required>
                     </div>
                     <button class="btn btn-success mt-3" type="submit" name="daftarbtn">Register</button>
                 </form>
@@ -73,7 +74,7 @@
                         Daftar
                     </button>
                 </div>
-                <img src="img/log.svg" class="image" alt="" />
+               
             </div>
             <div class="panel right-panel">
                 <div class="content">
@@ -85,7 +86,7 @@
                         Masuk
                     </button>
                 </div>
-                <img src="img/register.svg" class="image" alt="" />
+                
             </div>
         </div>
     </div>
