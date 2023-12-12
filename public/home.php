@@ -1,30 +1,45 @@
 <?php
 include("../koneksi/koneksi.php");
+
+$productsPerPage = 8;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $productsPerPage;
+
 $search_query = isset($_GET['query']) ? mysqli_real_escape_string($con, $_GET['query']) : '';
 
-// Menggunakan fungsi CURRENT_DATE() untuk mendapatkan tanggal hari ini
-$query_products = mysqli_query($con, "SELECT * FROM barang WHERE nama_barang LIKE '%$search_query%' AND id_barang NOT IN (
-    SELECT id_barang FROM detail_pembelian WHERE tanggal_kadaluarsa <= CURRENT_DATE()
-)");
+// Fetch products with pagination
+$query_products = mysqli_query($con, "SELECT * FROM barang 
+    WHERE nama_barang LIKE '%$search_query%' 
+    AND id_barang NOT IN (
+        SELECT id_barang FROM detail_pembelian WHERE tanggal_kadaluarsa <= CURRENT_DATE()
+    ) AND stok > 0
+    LIMIT $offset, $productsPerPage");
 
 $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
+
+// Count total products for pagination
+$totalProductsQuery = mysqli_query($con, "SELECT COUNT(*) as total FROM barang 
+    WHERE nama_barang LIKE '%$search_query%' 
+    AND id_barang NOT IN (
+        SELECT id_barang FROM detail_pembelian WHERE tanggal_kadaluarsa <= CURRENT_DATE()
+    ) AND stok > 0");
+
+$totalProducts = mysqli_fetch_assoc($totalProductsQuery)['total'];
+$totalPages = ceil($totalProducts / $productsPerPage);
 ?>
 
 
-
-<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-<link href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" rel="stylesheet"/>
-<link rel="stylesheet" href="../assets/css/card.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="../assets/css/product.css" rel="stylesheet">
 <style>
     .box-affix {
             padding: 15px;
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
             border-radius: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
         .bg-affix2 {
             background-color: #e2e3e5;
@@ -106,49 +121,65 @@ $products = mysqli_fetch_all($query_products, MYSQLI_ASSOC);
         font-size: 20px;
         font-weight: bold;
         }
-        /* Tambahkan CSS berikut */
-.row.no-gutters {
-    margin-right: 0;
-    margin-left: 0;
-}
-
-.col-md-3.no-gutters {
-    padding-right: 0;
-    padding-left: 0;
-}
-
 </style>
-<div class="container mt-2">
-    <div class="row no-gutters">
-        <div class="position-relative mr-3 box-affix bg-affix2">
-            <div class="line1"></div>
-            <h4>For You</h4>
-        </div>
-        <?php foreach ($products as $product): ?>
-            <div class="col-md-3 mb-3 no-gutters">
-                <div class="wsk-cp-product">
-                    <div class="wsk-cp-img">
-                        <?php
-                        $imageData = base64_encode($product['gambar']);
-                        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
-                        ?>
-                        <img src="<?= $imageSrc; ?>" alt="<?= $product['nama_barang']; ?>" class="img-responsive custom-image" />
-                    </div>
-                    <div class="wsk-cp-text">
-                        <div class="category">
-                            <span><?= $product['nama_barang']; ?></span>
-                        </div>
-                        <div class="description-prod">
-                            <p class="mt-2">Stock: <?= $product['stok'] . ' ' . $product['satuan']; ?></p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="wcf-left"><span class="price">Rp. <?= number_format($product['harga_jual']); ?></span></div>
-                            <div class="wcf-right"><a href="#" class="buy-btn add-to-cart" data-product-id="<?= $product['id_barang']; ?>"><i class="zmdi zmdi-shopping-basket"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        <?php endforeach; ?>
+<div class="untree_co-section product-section before-footer-section">
+  <div class="container">
+    <div class="row">
+      <div class="position-relative mr-3 box-affix bg-affix2">
+        <div class="line1"></div>
+        <h4>For You</h4>
+      </div>
+      <?php foreach ($products as $product): ?>
+        <div class="col-12 col-md-4 col-lg-3 mb-5">
+          <div class="product-item">
+            <?php
+            $imageData = base64_encode($product['gambar']);
+            $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+            ?>
+            <img src="<?= $imageSrc; ?>" alt="<?= $product['nama_barang']; ?>" class="img-fluid product-thumbnail" style="height: 250px;" />
+            <h3 class="product-title"><?= $product['nama_barang']; ?></h3>
+            <strong class="product-price">Rp. <?= number_format($product['harga_jual']); ?></strong>
+            <span class="icon-cross">
+              <img src="../assets/image/cross.svg" class="img-fluid add-to-cart" data-product-id="<?= $product['id_barang']; ?>">
+            </span>
+          </div>
+        </div> 
+      <?php endforeach; ?>
+    </div>
+  </div>
+<!-- Pagination links -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <ul class="pagination justify-content-center">
+                <?php if ($page > 1): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?query=<?= $search_query ?>&page=<?= $page - 1 ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo; Previous</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                        <a class="page-link" href="?query=<?= $search_query ?>&page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?query=<?= $search_query ?>&page=<?= $page + 1 ?>" aria-label="Next">
+                            <span aria-hidden="true">Next &raquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
     </div>
 </div>
+</div>
+		
+	</body>
+
+</html>
