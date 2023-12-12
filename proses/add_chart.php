@@ -13,6 +13,7 @@ if (!isset($_SESSION['login'])) {
     echo json_encode($response);
 
     die();
+
 }
 
 if (isset($_POST['productId']) && isset($_POST['quantity'])) {
