@@ -34,7 +34,7 @@ if ($keranjang) {
     $detail_keranjang = mysqli_fetch_all($query_detail_keranjang, MYSQLI_ASSOC);
 
 }
-
+$keranjangKosong = empty($detail_keranjang);
 ?>
 
 
@@ -317,22 +317,10 @@ include '../proses/header.php';
 
                                 <form action="../proses/checkout.php" method="post">
 
-                                    <!-- <a href="../public/index.php" class="btn btn-secondary btn-continue-shopping">Lanjutkan Belanja</a> -->
-
-                                    <!-- <button type="submit" name="checkout" class="btn btn-success btn-checkout">Checkout</button> -->
-
-                                    
-
-                                    <button type="submit" class="btn btn-primary btn-block btn-lg checkout" name="checkout">
-
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg checkout" name="checkout" <?= $keranjangKosong ? 'disabled' : '' ?>>
                                         <div class="d-flex justify-content-between">
-
                                             <span>Checkout</span>
-
-                                            <!-- <span><?= $total_harga; ?></span> -->
-
                                         </div>
-
                                     </button>
 
                                 </form>

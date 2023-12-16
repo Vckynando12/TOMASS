@@ -17,8 +17,8 @@ $(document).ready(function () {
     }
 });
 
-$(document).ready(function() {
-    $(".add-to-cart").on("click", function() {
+$(document).ready(function () {
+    $(".add-to-cart").on("click", function () {
         var productId = $(this).data("product-id");
         var quantity = 1;
 
@@ -30,32 +30,49 @@ $(document).ready(function() {
                 url: "../proses/add_chart.php",
                 data: { productId: productId, quantity: quantity },
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
-                        alert(response.message);
-                        location.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
                     } else {
                         if (response.redirect) {
-                            alert(response.message);
-                            setTimeout(function() {
-                                window.location.href = response.redirect;
-                            }, 1000);
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Warning',
+                                text: response.message,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = response.redirect;
+                                }
+                            });
                         } else {
-                            alert(response.message);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message,
+                            });
                         }
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     console.log("AJAX Error:", textStatus, errorThrown);
-                    alert("Error adding product to cart");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error adding product to cart',
+                    });
                 },
-                complete: function() {
+                complete: function () {
                     $(".add-to-cart").prop('disabled', false);
                 }
             });
         }
     });
 });
-
-
-
