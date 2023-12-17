@@ -36,9 +36,11 @@ $(document).ready(function () {
                             icon: 'success',
                             title: 'Success',
                             text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
                         }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                updateCartItemCount();
                             }
                         });
                     } else {
@@ -75,4 +77,30 @@ $(document).ready(function () {
             });
         }
     });
+
+    function updateCartItemCount() {
+        $.ajax({
+            type: "GET",
+            url: "../proses/update_keranjang.php",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    // Memperbarui jumlah barang di header
+                    var itemCount = response.itemCount;
+                    updateHeaderCartCount(itemCount);
+                }
+            }
+        });
+    }
+
+    function updateHeaderCartCount(count) {
+        // Memperbarui tampilan jumlah barang di header
+        var cartCountElement = $('.nav-icon span.badge');
+        if (count > 0) {
+            cartCountElement.text(count).show();
+        } else {
+            cartCountElement.hide();
+        }
+    }
+
 });
